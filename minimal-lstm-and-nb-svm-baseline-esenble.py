@@ -10,5 +10,6 @@ label_cols = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_
 p_res = p_lstm.copy()
 p_res[label_cols] = (p_nbsvm[label_cols] + p_lstm[label_cols]) / 2
 
+# finally, create our CSV.
 p_res.to_csv('submission.csv', index=False)
 
