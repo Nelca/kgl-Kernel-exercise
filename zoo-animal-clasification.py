@@ -64,3 +64,18 @@ cost = tf.reduce_mean(cost_i)
 # cost = tf.reduce_mean(-tf.reduce_sum(Y * tf.log(hypothesis)))
 
 
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    for step in range(5001):
+        sess.run(train, feed_dict={X: train_x, Y: train_y})
+        if step % 1000 == 0:
+            loss, acc = sess.run([cost, accuracy], feed_dict={X: train_x, Y: train_y})
+            print("Step: {:5}\tLoss: {:.3f}\tAcc: {:.2%}".format(step, loss, acc))
+            
+    train_acc = sess.run(accuracy, feed_dict={X: train_x, Y: train_y})
+    test_acc,test_predict,test_correct = sess.run([accuracy,prediction,correct_prediction], feed_dict={X: test_x, Y: test_y})
+    print("Model Prediction =", train_acc)
+    print("Test Prediction =", test_acc)
+
+
+
